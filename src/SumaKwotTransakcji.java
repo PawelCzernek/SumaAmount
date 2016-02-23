@@ -1,4 +1,5 @@
 
+import java.math.BigDecimal;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,8 +16,8 @@ public static void main(String[] args) {
 		String src_iban;
 		String dst_iban;
 		String amountStr;
-		Double amount;
-		Double suma = 0.0;
+		BigDecimal amount = BigDecimal.valueOf(0, 2);
+		BigDecimal suma = BigDecimal.valueOf(0, 2);
 		
 		
 		ArrayList<String> nameList = new ArrayList<>();
@@ -24,8 +25,16 @@ public static void main(String[] args) {
 		ArrayList<String> src_ibanList = new ArrayList<>();
 		ArrayList<String> dst_ibanList = new ArrayList<>();
 		ArrayList<String> amountList = new ArrayList<>();
-		ArrayList<Double> amountDoubleList = new ArrayList<>();
+		ArrayList<BigDecimal> amountDoubleList = new ArrayList<>();
 		
+//		String filePath = "";
+//		
+//		if (args.equals(null)){
+//			filePath ="./Plik z danymi.txt";
+//				filePath = args.toString();
+//		} else {
+//			filePath = args.toString();
+//		}
 		
 		
 		try{
@@ -70,21 +79,28 @@ public static void main(String[] args) {
 			String digit = amountList.get(i);
 			String digit2 = "";
 			for(int j=0; j<digit.length(); j++){
-				
 				if(digit.charAt(j)==','){
-					digit2 = digit.substring(0,j-1)+'.'+digit.substring(j+1);
+					digit2+='.';
+				}else if(digit.charAt(j)=='0'||digit.charAt(j)=='1'||digit.charAt(j)=='2'||digit.charAt(j)=='3'
+						||digit.charAt(j)=='4'||digit.charAt(j)=='5'||digit.charAt(j)=='6'||digit.charAt(j)=='7'
+						||digit.charAt(j)=='8'||digit.charAt(j)=='9'){
+					digit2+=digit.charAt(j);
+				}else{
+					digit2+="";
 				}
 				amountList.set(i, digit2);
 			}
-			amount = Double.valueOf(digit2.substring(0, 3));
-			amountDoubleList.add(amount);			
+			amount = new BigDecimal(digit2);
+			amountDoubleList.add(amount);	
+		}
+			
 			//Obliczanie sumy
 			
 			for (int k=0; k< amountDoubleList.size(); k++ ){
-				suma += amountDoubleList.get(i);	
+				suma = (suma.add(amountDoubleList.get(k)));	
 			}
-		}
-		System.out.println("Suma wartości amount wynosi:"+suma);
+		
+		System.out.println("Suma wartości amount wynosi:"+suma.toString());
 	}
 
 }
