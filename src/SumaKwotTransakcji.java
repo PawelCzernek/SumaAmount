@@ -52,7 +52,7 @@ public static void main(String[] args) {
 				amountList.add(amountStr);
 				
 				
-				System.out.printf ("Wczytano dane -> name: %s, surname: %s, src_iban: %s, dst_iban: %s, amount: %s\n",name, surname,src_iban,dst_iban,amountStr );
+				//System.out.printf ("Wczytano dane -> name: %s, surname: %s, src_iban: %s, dst_iban: %s, amount: %s\n",name, surname,src_iban,dst_iban,amountStr );
 			}
 			
 		} 
